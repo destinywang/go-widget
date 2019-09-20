@@ -5,7 +5,7 @@ import (
 )
 
 func TestByte2String(t *testing.T) {
-	t.Log(Byte2String(byte(21)))
+	t.Log(byte2String(byte(21)))
 }
 
 func TestBitMap_Set(t *testing.T) {
@@ -19,5 +19,9 @@ func TestBitMap_Set(t *testing.T) {
 	bm.Set(15)
 	bm.Set(17)
 	bm.Set(19)
+
+	t.Logf("10 exist? %v", bm.Exists(10))
+	t.Logf("11 exist? %v", bm.Exists(11))
+	t.Logf("13 exist? %v", bm.Exists(13))
 	bm.Print()
 }

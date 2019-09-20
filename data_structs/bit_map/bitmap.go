@@ -31,10 +31,23 @@ func (bm *BitMap) calIdx(i uint32) (idx uint32, pos uint32) {
 
 func (bm *BitMap) Set(i uint32) {
 	idx, pos := bm.calIdx(i)
-	bm.bitArray[idx] |= 1 << pos
+	bm.bitArray[idx] |= 1 << (pos-1)
 }
 
-func Byte2String(b byte) string {
+func (bm *BitMap) Exists(i uint32) bool {
+	idx, pos := bm.calIdx(i)
+	return bm.bitArray[idx]&(1<<(pos-1)) == 1<<(pos-1)
+}
+
+func (bm *BitMap) Print() {
+	strs := make([]string, len(bm.bitArray))
+	for _, b := range bm.bitArray {
+		strs = append(strs, byte2String(b))
+	}
+	fmt.Println(strings.Join(strs, "-"))
+}
+
+func byte2String(b byte) string {
 	var magicBit uint32 = 1
 	str := ""
 	for i := 0; i < BitSize; i++ {
@@ -46,12 +59,4 @@ func Byte2String(b byte) string {
 		}
 	}
 	return str
-}
-
-func (bm *BitMap) Print() {
-	strs := make([]string, len(bm.bitArray))
-	for _, b := range bm.bitArray {
-		strs = append(strs, Byte2String(b))
-	}
-	fmt.Println(strings.Join(strs, "-"))
 }
