@@ -1,6 +1,7 @@
 package bit_map
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -13,15 +14,19 @@ func TestBitMap_Set(t *testing.T) {
 		size: 20,
 	}
 	bm.Init()
-	bm.Print()
-	bm.Set(10)
-	bm.Set(13)
-	bm.Set(15)
-	bm.Set(17)
-	bm.Set(19)
+	t.Logf("start: [%s]", bm)
+	err := bm.Set(10)
+	assert.Nil(t, err)
+	err = bm.Set(13)
+	assert.Nil(t, err)
+	err = bm.Set(99)
+	assert.NotNil(t, err)
 
-	t.Logf("10 exist? %v", bm.Exists(10))
-	t.Logf("11 exist? %v", bm.Exists(11))
-	t.Logf("13 exist? %v", bm.Exists(13))
-	bm.Print()
+	exists := bm.Exists(10)
+	assert.True(t, exists)
+	exists = bm.Exists(11)
+	assert.False(t, exists)
+	exists = bm.Exists(13)
+	assert.True(t, exists)
+	t.Logf("end: [%s]", bm)
 }

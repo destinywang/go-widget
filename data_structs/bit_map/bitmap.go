@@ -29,22 +29,29 @@ func (bm *BitMap) calIdx(i uint32) (idx uint32, pos uint32) {
 	return
 }
 
-func (bm *BitMap) Set(i uint32) {
+func (bm *BitMap) Set(i uint32) error {
+	if i > bm.size {
+		return fmt.Errorf("bit map size over flow, max size=[%d]", bm.size)
+	}
 	idx, pos := bm.calIdx(i)
 	bm.bitArray[idx] |= 1 << (pos-1)
+	return nil
 }
 
 func (bm *BitMap) Exists(i uint32) bool {
+	if i > bm.size {
+		return false
+	}
 	idx, pos := bm.calIdx(i)
 	return bm.bitArray[idx]&(1<<(pos-1)) == 1<<(pos-1)
 }
 
-func (bm *BitMap) Print() {
+func (bm *BitMap) String() string {
 	strs := make([]string, len(bm.bitArray))
 	for _, b := range bm.bitArray {
 		strs = append(strs, byte2String(b))
 	}
-	fmt.Println(strings.Join(strs, "-"))
+	return strings.Join(strs, "-")
 }
 
 func byte2String(b byte) string {
