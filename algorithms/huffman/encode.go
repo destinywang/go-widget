@@ -59,12 +59,14 @@ func createHuffmanCode0(node *Node, codes []string, codeMp map[byte]string) map[
 }
 
 // 压缩
-func Compress(content []byte, codeMap map[byte]string) []byte {
+func Encode(content []byte, codeMap map[byte]string) []byte {
 	strs := make([]string, 0, len(content))
 	for _, b := range content {
 		strs = append(strs, codeMap[b])
 	}
 	huffmanStr := strings.Join(strs, "")
+	fmt.Printf("[Encode] content=[%v]\n", content)
+	fmt.Printf("[Encode] huffmanStr=[%s]\n", huffmanStr)
 	byteLen := (len(huffmanStr) + 7) / 8
 	// create huffman code byte array
 	huffmanBytes := make([]byte, 0, byteLen)
@@ -79,6 +81,7 @@ func Compress(content []byte, codeMap map[byte]string) []byte {
 		b := Str2Byte(str)
 		huffmanBytes = append(huffmanBytes, byte(b))
 	}
+	fmt.Printf("[Encode] huffmanBytes=[%v]\n", huffmanBytes)
 	return huffmanBytes
 }
 
@@ -88,7 +91,7 @@ func Zip(srcBytes []byte) []byte {
 	// get huffman code map
 	codeMap := CreateHuffmanCode(huffmanTree)
 	// return
-	return Compress(srcBytes, codeMap)
+	return Encode(srcBytes, codeMap)
 }
 
 // 11100110
