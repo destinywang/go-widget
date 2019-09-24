@@ -11,7 +11,7 @@ func TestByte2String(t *testing.T) {
 
 func TestBitMap_Set(t *testing.T) {
 	bm := &BitMap{
-		size: 20,
+		Size: 20,
 	}
 	bm.Init()
 	t.Logf("start: [%s]", bm)

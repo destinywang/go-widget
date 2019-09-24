@@ -10,15 +10,18 @@ const BitSize = 8
 
 type BitMap struct {
 	bitArray []byte
-	size     uint32
+	Size     uint32
 }
 
 func (bm *BitMap) Init() {
+	if bm.Size > 1<<27 {
+		panic("bit map Size over flow")
+	}
 	var r uint32
-	if bm.size <= 1 {
+	if bm.Size <= 1 {
 		r = 1
 	} else {
-		r = uint32(math.Ceil(float64(float64(bm.size) / BitSize)))
+		r = uint32(math.Ceil(float64(float64(bm.Size) / BitSize)))
 	}
 	bm.bitArray = make([]byte, r)
 }
@@ -30,16 +33,16 @@ func (bm *BitMap) calIdx(i uint32) (idx uint32, pos uint32) {
 }
 
 func (bm *BitMap) Set(i uint32) error {
-	if i > bm.size {
-		return fmt.Errorf("bit map size over flow, max size=[%d]", bm.size)
+	if i > bm.Size {
+		return fmt.Errorf("bit map Size over flow, max Size=[%d]", bm.Size)
 	}
 	idx, pos := bm.calIdx(i)
-	bm.bitArray[idx] |= 1 << (pos-1)
+	bm.bitArray[idx] |= 1 << (pos - 1)
 	return nil
 }
 
 func (bm *BitMap) Exists(i uint32) bool {
-	if i > bm.size {
+	if i > bm.Size {
 		return false
 	}
 	idx, pos := bm.calIdx(i)
@@ -47,7 +50,7 @@ func (bm *BitMap) Exists(i uint32) bool {
 }
 
 func (bm *BitMap) String() string {
-	strs := make([]string, len(bm.bitArray))
+	strs := make([]string, 0, len(bm.bitArray))
 	for _, b := range bm.bitArray {
 		strs = append(strs, byte2String(b))
 	}
