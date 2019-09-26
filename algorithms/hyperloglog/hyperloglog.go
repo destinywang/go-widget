@@ -6,3 +6,7 @@ type HyperLogLog interface {
 	// 统计总数
 	Count(key string) int
 }
+
+type HLL struct {
+
+}

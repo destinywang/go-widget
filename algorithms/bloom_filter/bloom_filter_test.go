@@ -22,8 +22,8 @@ func Test(t *testing.T) {
 	bf.Init()
 	cache := make(map[string]struct{})
 
-	for i := 0; i < 10; i++ {
-		uuids, _ := uuid.NewV4()
+	for i := 0; i < 10000000; i++ {
+		uuids := uuid.NewV4()
 		uid := uuids.String()
 		inBloom := bf.Contains(uid)
 		_, inMap := cache[uid]
