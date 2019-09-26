@@ -1,13 +1,17 @@
 package bloom_filter
 
-import "github.com/DestinyWang/go-widget/data_structs/bit_map"
+import (
+	"fmt"
+	"github.com/DestinyWang/go-widget/data_structs/bit_map"
+	"github.com/sirupsen/logrus"
+)
 
 const defaultSize = 1 << 25
 
 var seeds = []int32{7, 11, 13, 31, 37, 61}
 
 type BloomFilter struct {
-	*bit_map.BitMap
+	bitMap *bit_map.BitMap
 	hashs []hash
 }
 
@@ -25,24 +29,29 @@ func (h *hash) hash(value string) int32 {
 }
 
 func (bf *BloomFilter) Init() {
-	bf.BitMap = &bit_map.BitMap{
-		Size:defaultSize,
+	bf.bitMap = &bit_map.BitMap{
+		Size: defaultSize,
 	}
-	bf.BitMap.Init()
+	bf.bitMap.Init()
 	for i := range seeds {
 		bf.hashs = append(bf.hashs, hash{
-			cap:defaultSize,
+			cap:  defaultSize,
 			seed: seeds[i],
 		})
 	}
 }
 
 func (bf *BloomFilter) Add(value string) (err error) {
+	posList := make([]uint32, 0)
 	for _, h := range bf.hashs {
-		if err = bf.BitMap.Set(uint32(h.hash(value))); err != nil {
+		pos := uint32(h.hash(value))
+		posList = append(posList, pos)
+		if err = bf.bitMap.Set(pos); err != nil {
+			logrus.WithError(err).Errorf("set bit map fail")
 			return
 		}
 	}
+	fmt.Printf("value=[%s] posList=[%v]\n", value, posList)
 	return
 }
 
@@ -52,7 +61,7 @@ func (bf *BloomFilter) Contains(value string) bool {
 	}
 	flag := true
 	for _, h := range bf.hashs {
-		flag = bf.BitMap.Exists(uint32(h.hash(value)))
+		flag = bf.bitMap.Exists(uint32(h.hash(value)))
 	}
 	return flag
 }
