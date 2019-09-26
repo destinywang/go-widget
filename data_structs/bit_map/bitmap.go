@@ -8,13 +8,14 @@ import (
 
 const BitSize = 8
 
+// 误判率大约在 (万分之5)~(万分之7)
 type BitMap struct {
 	bitArray []byte
-	Size     uint64
+	Size     uint32
 }
 
 func (bm *BitMap) Init() {
-	if bm.Size > 1<<31 {
+	if bm.Size > 1<<32-1 {
 		panic("bit map Size over flow")
 	}
 	var r uint32
@@ -26,13 +27,13 @@ func (bm *BitMap) Init() {
 	bm.bitArray = make([]byte, r)
 }
 
-func (bm *BitMap) calIdx(i uint64) (idx uint64, pos uint64) {
+func (bm *BitMap) calIdx(i uint32) (idx uint32, pos uint32) {
 	idx = i >> 3
 	pos = i & (BitSize - 1)
 	return
 }
 
-func (bm *BitMap) Set(i uint64) error {
+func (bm *BitMap) Set(i uint32) error {
 	if i > bm.Size {
 		return fmt.Errorf("bit map Size over flow, max Size=[%d], error position=[%d]", bm.Size, i)
 	}
@@ -41,7 +42,7 @@ func (bm *BitMap) Set(i uint64) error {
 	return nil
 }
 
-func (bm *BitMap) Exists(i uint64) bool {
+func (bm *BitMap) Exists(i uint32) bool {
 	if i > bm.Size {
 		return false
 	}

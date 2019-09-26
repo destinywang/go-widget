@@ -1,8 +1,8 @@
 package bloom_filter
 
 import (
-	uuid "github.com/satori/go.uuid"
 	"github.com/stretchr/testify/assert"
+	"strconv"
 	"testing"
 )
 
@@ -21,17 +21,28 @@ func Test(t *testing.T) {
 	bf := &BloomFilter{}
 	bf.Init()
 	cache := make(map[string]struct{})
-
-	for i := 0; i < 10000000; i++ {
-		uuids := uuid.NewV4()
-		uid := uuids.String()
+	errCnt := 0
+	loopCnt := 50000000
+	for i := 0; i < loopCnt; i++ {
+		//uuids := uuid.NewV4()
+		uid := strconv.FormatInt(int64(i), 10)
 		inBloom := bf.Contains(uid)
 		_, inMap := cache[uid]
 		if inBloom != inMap {
-			t.Errorf("idx=[%d], uuid=[%s], inBloom=[%v], inMap=[%v]", i, uid, inBloom, inMap)
+			t.Logf("idx=[%d], uuid=[%s], inBloom=[%v], inMap=[%v]", i, uid, inBloom, inMap)
+			errCnt++
 		}
-
 		cache[uid] = struct{}{}
-		bf.Add(uid)
+		err := bf.Add(uid)
+		assert.Nil(t, err)
 	}
+	assert.Equal(t, loopCnt, len(cache))
+	assert.True(t, bf.Contains("100"))
+	assert.True(t, bf.Contains("1000"))
+	assert.True(t, bf.Contains("10000"))
+	assert.True(t, bf.Contains("100000"))
+	assert.True(t, bf.Contains("1000000"))
+	assert.True(t, bf.Contains("10000000"))
+	assert.False(t, bf.Contains(strconv.FormatInt(int64(loopCnt), 10)))
+	t.Logf("errCnt=[%d]", errCnt)
 }

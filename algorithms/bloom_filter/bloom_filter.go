@@ -6,13 +6,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const defaultSize = 1 << 31
+const defaultSize = 1<<32 - 1
 
 var seeds = []int64{7, 11, 13, 31, 37, 61}
 
 type BloomFilter struct {
 	bitMap *bit_map.BitMap
-	hashs []hash
+	hashs  []hash
 }
 
 type hash struct {
@@ -36,9 +36,9 @@ func (bf *BloomFilter) Init() {
 }
 
 func (bf *BloomFilter) Add(value string) (err error) {
-	//posList := make([]uint64, 0)
+	//posList := make([]uint32, 0)
 	for _, h := range bf.hashs {
-		pos := uint64(h.hash(value)) % (1<<31)
+		pos := uint32(h.hash(value)) % (1 << 31)
 		//posList = append(posList, pos)
 		if err = bf.bitMap.Set(pos); err != nil {
 			logrus.WithError(err).Errorf("set bit map fail")
@@ -55,7 +55,7 @@ func (bf *BloomFilter) Contains(value string) bool {
 	}
 	flag := true
 	for _, h := range bf.hashs {
-		flag = bf.bitMap.Exists(uint64(h.hash(value)))
+		flag = flag && bf.bitMap.Exists(uint32(h.hash(value))%(1<<31))
 	}
 	return flag
 }
