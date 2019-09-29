@@ -16,9 +16,6 @@ func (t *Node) Height() int {
 	if t == nil {
 		return 0
 	}
-	//if t.left == nil && t.right == nil {
-	//	return 1
-	//}
 	if t.left == nil {
 		return int(t.right.Height()) + 1
 	}

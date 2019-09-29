@@ -1,21 +1,21 @@
 package hash
 
 const (
-	BIG_M = 0xc6a4a7935bd1e995
-	BIG_R = 47
+	BigM = 0xc6a4a7935bd1e995
+	BigR = 47
 )
 
 func MurmurHash64A(data []byte, seed int64) (h int64) {
 	var k int64
-	h = seed ^ int64(uint64(len(data))*BIG_M)
+	h = seed ^ int64(uint64(len(data))*BigM)
 
-	var ubigm uint64 = BIG_M
+	var ubigm uint64 = BigM
 	var ibigm = int64(ubigm)
 	for l := len(data); l >= 8; l -= 8 {
-		k = int64(int64(data[0]) | int64(data[1])<<8 | int64(data[2])<<16 | int64(data[3])<<24 | int64(data[4])<<32 | int64(data[5])<<40 | int64(data[6])<<48 | int64(data[7])<<56)
+		k = int64(data[0]) | int64(data[1])<<8 | int64(data[2])<<16 | int64(data[3])<<24 | int64(data[4])<<32 | int64(data[5])<<40 | int64(data[6])<<48 | int64(data[7])<<56
 
 		k := k * ibigm
-		k ^= int64(uint64(k) >> BIG_R)
+		k ^= int64(uint64(k) >> BigR)
 		k = k * ibigm
 
 		h = h ^ k
@@ -47,8 +47,8 @@ func MurmurHash64A(data []byte, seed int64) (h int64) {
 		h *= ibigm
 	}
 
-	h ^= int64(uint64(h) >> BIG_R)
+	h ^= int64(uint64(h) >> BigR)
 	h *= ibigm
-	h ^= int64(uint64(h) >> BIG_R)
+	h ^= int64(uint64(h) >> BigR)
 	return
 }
