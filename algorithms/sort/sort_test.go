@@ -18,3 +18,8 @@ func TestSelectionSort(t *testing.T) {
 	SelectionSort(arr)
 	t.Log(arr)
 }
+
+func TestMergeSort(t *testing.T) {
+	MergeSort(arr)
+	t.Log(arr)
+}

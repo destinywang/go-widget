@@ -52,23 +52,52 @@ func SelectionSort(arr []int) {
 	}
 }
 
+// 左闭右闭, 只有 mid+1 才能推动递归分解, 所有元素都需要处理因此选择左闭右闭
 func MergeSort(arr []int) {
 	if len(arr) == 0 {
 		return
 	}
-
+	mergeSort(arr, 0, len(arr)-1)
 }
 
-func mergeSort(arr []int, r int, l int) []int {
-	if r >= l {
+func mergeSort(arr []int, l int, r int) {
+	if l >= r {
 		return
 	}
 	mid := (r + l) / 2
-	leftArr := mergeSort(arr, l, mid)
-	rightArr := mergeSort(arr, mid+1, r)
-
+	mergeSort(arr, l, mid)
+	mergeSort(arr, mid+1, r)
+	merge(arr, l, mid, r)
 }
 
-func merge(leftArr []int, rightArr []int) []int {
-
+func merge(arr []int, l, m, r int) {
+	fmt.Printf("l=[%d], m=[%d], r=[%d], subArr=%v\n", l, m, r, arr[l:r+1])
+	var newArr []int
+	p := l
+	q := m+1
+	for p < m+1 && q <= r {
+		if arr[p] < arr[q] {
+			newArr = append(newArr, arr[p])
+			p++
+		} else {
+			newArr = append(newArr, arr[q])
+			q++
+		}
+	}
+	var start, end int
+	if p < m+1 {
+		start = p
+		end = m+1
+	} else {
+		start = q
+		end = r
+	}
+	for start < end {
+		newArr = append(newArr, arr[start])
+		start++
+	}
+	fmt.Println(newArr)
+	for i := 0; i < len(newArr); i++ {
+		arr[l+i] = newArr[i]
+	}
 }
