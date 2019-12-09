@@ -2,7 +2,7 @@ package sort
 
 import "testing"
 
-var arr = []int{4, 6, 2, 3, 5, 1}
+var arr = []int{4, 6, 2, 1, 5, 3}
 
 func TestBubbleSort(t *testing.T) {
 	BubbleSort(arr)
@@ -21,5 +21,10 @@ func TestSelectionSort(t *testing.T) {
 
 func TestMergeSort(t *testing.T) {
 	MergeSort(arr)
+	t.Log(arr)
+}
+
+func TestQuickSort(t *testing.T) {
+	QuickSort(arr)
 	t.Log(arr)
 }
