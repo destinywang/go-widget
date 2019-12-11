@@ -84,8 +84,13 @@ func binarySearch3(arr []int, l int, r int, value int) int {
 	}
 	for l < r {
 		mid := l + (r-l)/2
-		if arr[mid] >= value {
+		if arr[mid] == value {
 			if mid == 0 || arr[mid-1] < value {
+				return mid
+			}
+			r = mid
+		} else if arr[mid] > value {
+			if arr[mid-1] < value {
 				return mid
 			}
 			r = mid
