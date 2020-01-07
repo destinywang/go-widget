@@ -1,6 +1,9 @@
 package sort
 
-import "testing"
+import (
+	"github.com/Pallinder/go-randomdata"
+	"testing"
+)
 
 var arr = []int{4, 6, 2, 1, 5, 3}
 
@@ -27,4 +30,12 @@ func TestMergeSort(t *testing.T) {
 func TestQuickSort(t *testing.T) {
 	QuickSort(arr)
 	t.Log(arr)
+}
+
+func TestHeapSort(t *testing.T) {
+	arr = make([]int, 0)
+	for i := 0; i < 50; i ++ {
+		arr = append(arr, randomdata.Number(0, 100))
+	}
+	t.Log(HeapSort(arr))
 }

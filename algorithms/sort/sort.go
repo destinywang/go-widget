@@ -1,6 +1,9 @@
 package sort
 
-import "fmt"
+import (
+	"fmt"
+	heap2 "github.com/DestinyWang/go-widget/data_structs/heap"
+)
 
 // 冒泡排序会把正确的序列排到末尾, 因此断尾不断头, 内层遍历需要从 0 开始
 func BubbleSort(arr []int) {
@@ -131,4 +134,19 @@ func quickSort(arr []int, l int, r int) {
 	arr[r] = t
 	quickSort(arr, l, p-1)
 	quickSort(arr, p+1, r)
+}
+
+func HeapSort(arr []int) (rst []int) {
+	if len(arr) == 0 {
+		return
+	}
+	return heapSort(arr)
+}
+
+func heapSort(arr []int) (rst []int) {
+	heap := heap2.CreateHeap(arr)
+	for !heap.Empty() {
+		rst = append(rst, heap.Pop())
+	}
+	return rst
 }
