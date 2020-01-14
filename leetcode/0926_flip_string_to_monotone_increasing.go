@@ -10,4 +10,5 @@ func MinFlipsMonoIncr(S string) int {
 	dp[0] = 0
 	for i := 1; i < len(S); i++ {
 	}
+	return 0
 }
