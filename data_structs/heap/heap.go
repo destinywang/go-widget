@@ -14,13 +14,13 @@ func CreateHeap(data []int) *Heap {
 	length := len(h.data)
 	// 对所有父节点完成堆化
 	for i := length/2; i >= 1; i-- {
-		h.Heapify(h.data, length, i)
+		h.heapify(h.data, length, i)
 	}
 	return h
 }
 
 // 堆化, 由每个叶子节点依次向下完成
-func (h *Heap) Heapify(arr []int, length int, i int) {
+func (h *Heap) heapify(arr []int, length int, i int) {
 	for {
 		maxIdx := i
 		if i*2 < length && arr[i] < arr[i*2] {
@@ -44,7 +44,7 @@ func (h *Heap) Pop() int {
 	swap(h.data, 1, len(h.data)-1)
 	n := h.data[len(h.data)-1]
 	h.data = h.data[:len(h.data)-1]
-	h.Heapify(h.data, len(h.data), 1)
+	h.heapify(h.data, len(h.data), 1)
 	return n
 }
 
