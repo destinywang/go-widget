@@ -1,4 +1,4 @@
-package leetcode
+package _026_删除排序数组中的重复项_remove_duplicates_from_sorted_array
 
 import "testing"
 

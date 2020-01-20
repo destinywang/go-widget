@@ -1,4 +1,4 @@
-package leetcode
+package _997_找到小镇的法官_find_the_town_judge
 
 import "testing"
 

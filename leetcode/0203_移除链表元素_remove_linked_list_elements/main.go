@@ -1,13 +1,10 @@
-package leetcode
+package _203_移除链表元素_remove_linked_list_elements
+
+import "github.com/DestinyWang/go-widget/leetcode"
 
 // 删除链表中等于给定值 val 的所有节点
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func RemoveElements(head *ListNode, val int) *ListNode {
+func RemoveElements(head *leetcode.ListNode, val int) *leetcode.ListNode {
 	for ; head != nil && head.Val == val; head = head.Next {
 
 	}

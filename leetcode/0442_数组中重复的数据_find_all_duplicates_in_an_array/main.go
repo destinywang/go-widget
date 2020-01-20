@@ -1,4 +1,4 @@
-package leetcode
+package _442_数组中重复的数据_find_all_duplicates_in_an_array
 
 import "math"
 

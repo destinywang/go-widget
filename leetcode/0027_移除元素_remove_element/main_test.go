@@ -1,4 +1,4 @@
-package leetcode
+package _027_移除元素_remove_element
 
 import "testing"
 

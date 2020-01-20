@@ -1,8 +1,10 @@
-package leetcode
+package _701_二叉搜索树中的插入操作_insert_into_a_binary_search_tree
 
-func InsertIntoBST(root *TreeNode, val int) *TreeNode {
+import "github.com/DestinyWang/go-widget/leetcode"
+
+func InsertIntoBST(root *leetcode.TreeNode, val int) *leetcode.TreeNode {
 	if root == nil {
-		return &TreeNode{
+		return &leetcode.TreeNode{
 			Val:   val,
 			Left:  nil,
 			Right: nil,
