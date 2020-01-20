@@ -1,10 +1,5 @@
 package leetcode
 
-type TreeNode struct {
-	Val int
-	Left, Right *TreeNode
-}
-
 func InsertIntoBST(root *TreeNode, val int) *TreeNode {
 	if root == nil {
 		return &TreeNode{
