@@ -18,6 +18,6 @@ func TestFindString(t *testing.T) {
 		"",
 		"",
 	}
-	t.Log(FindStringByBinSearch(words, "ta"))
-	t.Log(FindStringByBinSearch(words, "ball"))
+	t.Log(FindString(words, "ta"))
+	t.Log(FindString(words, "ball"))
 }
