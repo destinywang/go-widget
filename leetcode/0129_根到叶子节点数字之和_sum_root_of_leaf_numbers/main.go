@@ -1,4 +1,4 @@
-package main
+package _129_根到叶子节点数字之和_sum_root_of_leaf_numbers
 
 type TreeNode struct {
 	Val   int
@@ -32,8 +32,4 @@ func Stack2Int(stack []int) int {
 		n = n*10 + stack[i]
 	}
 	return n
-}
-
-func main() {
-
 }

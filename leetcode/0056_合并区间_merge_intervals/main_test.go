@@ -1,4 +1,4 @@
-package _056_合并区间
+package _056_合并区间_merge_intervals
 
 import (
 	"testing"
