@@ -1,4 +1,4 @@
-package _235_二叉搜索树的最近公共祖先_lowest_common_ancestor_of_a_binary_search_tree
+package _236_二叉树的最近公共祖先_lowest_common_ancestor_of_a_binary_tree
 
 import "testing"
 
