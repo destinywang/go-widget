@@ -16,4 +16,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+# leetcode
+leetcode/editor/cn/all.json
+
 .idea
