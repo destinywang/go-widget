@@ -42,3 +42,10 @@ func TestTreeNode_Add(t *testing.T) {
 	t.Logf("left sub tree: [%d]", at.LeftHeight())
 	t.Logf("right sub tree: [%d]", at.RightHeight())
 }
+
+func TestNode_Add(t *testing.T) {
+	a := 1
+	b := 2
+	a, b = b, a
+	t.Log(a,b)
+}
