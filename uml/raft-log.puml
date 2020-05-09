@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor Client
+Client ->  Leader: 客户端请求
+Leader -> Follower1: 日志复制 RPC
+Leader -> Follower2: 日志复制 RPC
+Leader -> Follower3: 日志复制 RPC
+Follower1 --> Leader: 复制成功
+Follower2 --> Leader: 复制成功
+... Leader 等待超时 ...
+Leader -> Leader: 收到大多数 Follower 的复制成功响应, 提交日志记录
+Leader -> Client: 返回响应
+loop 周期性发送心跳
+note right: 返回响应后, Leader 通过日志复制消息或心跳消息发送当前最大将会被提交的消息
+Leader -> Follower1: 心跳消息
+Follower1 -> Follower1: 提交日志记录
+Leader -> Follower2: 心跳消息
+Follower2 -> Follower2: 提交日志记录
+Leader -> Follower3: 心跳消息
+Follower3 -> Follower3: 提交日志记录
+end
+@enduml
