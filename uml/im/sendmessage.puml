@@ -1,0 +1,13 @@
+@startuml
+autonumber
+actor 用户A
+用户A -> IM服务: 发消息
+IM服务 -> 消息存储: 消息暂存
+消息存储 --> IM服务
+IM服务 --> 用户A: 返回成功
+actor 用户B
+IM服务 -> 用户B
+IM服务 ->> IM服务: 等待 ACK 超时
+用户B -> 用户B: 存储本地数据库
+用户B --> IM服务: ACK 通知
+@enduml

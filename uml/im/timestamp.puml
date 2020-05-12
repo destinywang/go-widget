@@ -1,0 +1,13 @@
+@startuml
+participant IM服务
+actor 用户B
+IM服务 -> 用户B: 消息推送 msg1+sid1+timestamp1
+用户B -> 用户B: 更新本地时间戳为 timestamp1
+用户B --> IM服务: ACK 通知
+IM服务 ->x 用户B: 消息推送 msg2+sid2+timestamp2
+note right: 断连
+用户B -> IM服务: 重连上线 timestamp1
+IM服务 -> IM服务: 获取 > timestamp1 的全部消息
+IM服务 --> 用户B: 返回 msg2
+用户B -> 用户B: 更新本地时间戳为 timestamp2
+@enduml
