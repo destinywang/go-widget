@@ -35,22 +35,6 @@ func swapPairs(head *ListNode) *ListNode {
 }
 
 func main() {
-	head := &ListNode{
-		Val: 1,
-		Next: &ListNode{
-			Val: 2,
-			Next: &ListNode{
-				Val: 3,
-				Next: &ListNode{
-					Val: 4,
-					Next: &ListNode{
-						Val:  5,
-						Next: nil,
-					},
-				},
-			},
-		},
-	}
-	fmt.Println(head)
-	fmt.Println(swapPairs(head))
+	var list = []int{1,2,3,4,5,6}
+	fmt.Println(append(list[:3], list[4:]...))
 }
